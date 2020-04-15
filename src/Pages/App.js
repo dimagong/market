@@ -14,22 +14,24 @@ import { Cartcomponent } from "./ProductList/Carts/carts.component";
 export default function App() {
 
 
-  const [kitShop, newItems] = useState([]);
-  const shopping = (item) => newItems([...kitShop, item]);
-  console.log('kitShop', kitShop);
+   const [dataShop, updateData] = useState([]);
+   const changeData = (dataList) => updateData(dataList);
+  console.log('dataShop', dataShop);
 
   return (
     <Router>
       <Switch>
 
         <Route path="/" exact>
-          <ProductList  shopping={shopping} />
+          <ProductList  changeData={changeData} />
+          {/* <ProductList   /> */}
         </Route>
 
         <Route path="/details"  component={ProductDetail}/> 
 
         <Route path="/cart" >
-          <Cartcomponent  shopping={shopping} />
+          <Cartcomponent  dataShop={dataShop}/>
+          {/* <Cartcomponent   /> */}
         </Route>
 
  
@@ -38,4 +40,5 @@ export default function App() {
     </Router> 
   );
 }
+
 
