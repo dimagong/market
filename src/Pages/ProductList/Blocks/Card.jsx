@@ -10,16 +10,19 @@ const { Meta } = CardComponent;
 
 
 
-export const Card = ({ item, onAppendNewCart }) => {
+export const Card = ({ item, onAppendNewCart, onselectItem }) => {
 
     const [isFlipped, changeFlipped] = useState(false);
     const onchangeFlipped = () => changeFlipped(!isFlipped);
 
     //  const [cartList, addToCartList] = useState({listcart});
     //  const onAppendNewCart = () => addToCartList([]);
-  //console.log('cartList', cartList);
+    //  console.log('cartList', cartList);
 
-    
+    const onClickTitle = () => {
+        console.log("onselectIte", item);
+        onselectItem(item);
+    }
     return (
 
         <ReactCardFlip isFlipped={isFlipped} flipDirection="vertical">
@@ -30,9 +33,9 @@ export const Card = ({ item, onAppendNewCart }) => {
                 onClick={onchangeFlipped}
                 
             >
-                <Link to='/details'>
-                    <Meta title={item.name} />
-                </Link>
+                 {/* <Link to='/details'>  */}
+                    <Meta title={item.name}  onClick={onClickTitle} />
+                 {/* </Link>  */}
                 
                 <Meta title={`$ ${item.price}`} />
                 <TextBold>Text</TextBold>
@@ -49,8 +52,8 @@ export const Card = ({ item, onAppendNewCart }) => {
                 
             >
                 <Link to='/details'>
-                    <Meta title={'item.name'} />
-                </Link>
+                    <Meta title={'item.name'}  />
+                 </Link> 
                 
                 <Meta title={`$ ${item.price}`} />
                 <Button type="primary">Primary</Button>

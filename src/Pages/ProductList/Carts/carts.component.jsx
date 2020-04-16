@@ -1,15 +1,15 @@
 import React from 'react';
 
-import { Layout,  Row, Col, Divider, Button, Card as CardComponent } from "antd";
+import { Layout,  Row, Col, Divider, Card as CardComponent } from "antd";
 
-import { Data } from '../Data';
+
 
 
 export const Cartcomponent = ({dataShop}) => {
 
-    const { Header, Footer, Sider, Content } = Layout;
+    const { Header, Footer, Content } = Layout;
     console.log('dataShop Cartcomponent', dataShop);
-    const { Meta } = CardComponent;
+    
     return (
         <Layout style={{ minHeight: "100vh"}} >
             <Header>Header</Header>

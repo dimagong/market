@@ -1,125 +1,85 @@
-import React, {useState, useEffect} from "react";
-import {Link} from "react-router-dom";
+import React, { useState } from "react";
+
 
 import { Card } from "./Blocks/index";
+import {UiLayoutComponent} from "../UI/Layout/uilayout.component" ;
+import { ButtonCounter } from "../UI/Layout/button-couter.component";
+import { MenuComponent } from "../UI/Layout/menu.component";
 
-import { Layout,  Row, Col, Divider, Button } from "antd";
-
-import { Data } from './Data';
+import { Col } from "antd";
 
 
 
-const { Header, Footer, Content } = Layout;
 
-const data = Data;
-
-// ({shopping})
-export const ProductList = ({changeData}) => {   
+export const ProductList = ({ changeData, data, onselectItem }) => {
 
   
-  const [countPrice, calculatorPrice] = useState( { price: 0, count: 0 } );
+  const [countPrice, calculatorPrice] = useState({ price: 0, count: 0 });
   const totalPriseIncrease = (nextCart) => {
     let nextCount = countPrice.count + 1;
     let nextPrice = nextCart.price + countPrice.price;
-    calculatorPrice( { price: nextPrice, count: nextCount } )
-    
+    calculatorPrice({ price: nextPrice, count: nextCount })
+
   }
 
-  
+
   const [cartList, addToCartList] = useState([]);
 
-  // useEffect(() => {
-  //   changeData(cartList);
-  // }, []);
   changeData(cartList);
 
-  const onAppendNewCart = (secondCart) =>{
-    
-    var number = cartList.find( (currentElem, i) => {
-      return currentElem === secondCart;
-    } );
+  const onAppendNewCart = (secondCart) => {
 
-    if(number){
+    var number = cartList.find((currentElem, i) => {
+      return currentElem === secondCart;
+    });
+
+    if (number) {
       number.count += 1;
       console.log('number', number);
       addToCartList(cartList);
       console.log('cartList', cartList);
 
-    }else{
+    } else {
       secondCart.count = 1;
-      addToCartList( [...cartList, secondCart] )
+      addToCartList([...cartList, secondCart])
     }
 
     totalPriseIncrease(secondCart);
-    
+
   }
-  
- 
-  //useEffect(
-   
-    //  () => { 
-    //    return  changeData(cartList);
-    //   },
-    //   [...cartList]
-   
-  //);
- 
- 
+
+
   console.log('cartList', cartList);
   console.log('countPrice', countPrice);
-  
 
-  
-  
 
-  const renderCart = (itemToCard, onAppendNewCart) => {
+
+
+  const renderCart = (item, onAppendNewCart, onselectItem) => {
     return (
-      // <Col className="gutter-row" span={4}  key={itemToCard.id} >
-      <Col className="gutter-row" span={5} style={{ marginLeft: '15px' } } key={itemToCard.id} >
-        <Card  item={itemToCard}  onAppendNewCart={onAppendNewCart}  />   
+      <Col className="gutter-row" span={6} key={item.id} >
+        <Card item={item} 
+              onAppendNewCart={onAppendNewCart} 
+              onselectItem={onselectItem}
+              
+        />
       </Col>
     );
   };
 
-  
-  
+  const listCart = data.map(item => {
+    return renderCart(item, onAppendNewCart, onselectItem);
+  })
+
+
+
   return (
-    <Layout style={{ minHeight: "100vh"}}>
+  <UiLayoutComponent 
 
-      <Header>
-        <Button type="primary" danger>
-          <Link to='/cart'>
-              YOUR CART
-          </Link>
-        </Button>
-        <Button danger>
-           { `All GOODS : ${countPrice.count}`}
-        </Button>
-        <Button danger>
-            { `TOTAL: $  ${countPrice.price}` }
-        </Button>
-        
-      </Header>
-
-      <Content> 
-
-        <Divider orientation="center" style={{ color: '#333', fontWeight: 'normal'}}>
-        THE HIT OF THE SEASON
-        </Divider>
-        
-        {/* style={{ display: "flex", alignItems:  "center"}} */}
-        {/* <Row justify="space-around"  > */}
-        <Row justify="space-around" gutter={[16, 24]}>
-            {
-              data.map(item => {
-                return renderCart(item, onAppendNewCart);
-              })
-            }
-        </Row>
-
-      </Content>
-
-      <Footer>Footer</Footer>
-    </Layout>
+    menu={<MenuComponent />}  
+    buttoncount={<ButtonCounter price={countPrice.price} count={countPrice.count} />}  
+    content={listCart }  
+  
+  />
   );
 };
