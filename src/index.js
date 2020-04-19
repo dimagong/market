@@ -10,7 +10,7 @@ import {create} from './Redux/index'
 
 
 const store = create();
-
+ 
 ReactDOM.render(
   <React.StrictMode>
       <Provider store={store} >

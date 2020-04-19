@@ -72,5 +72,5 @@ const products = (state = initialState, action) => {
             
     }
 }
-
+ 
 export default products;

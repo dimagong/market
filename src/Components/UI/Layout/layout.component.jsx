@@ -8,7 +8,7 @@ import { Layout, Row, Col, Divider } from "antd";
 const { Header, Footer, Content } = Layout;
 
 
-export const UiLayoutComponent = ({menu, buttoncount, content }) => {
+export const LayoutComponent = ({menu, buttoncount, content, title }) => {
 
 
   // const renderCart = (itemToCard, onAppendNewCart) => {
@@ -34,7 +34,9 @@ export const UiLayoutComponent = ({menu, buttoncount, content }) => {
       <Content style={{ width: "70%", marginLeft: '15%' }}>
 
         <Divider orientation="center" style={{ color: '#333', fontWeight: 'normal' }}>
-          THE HIT OF THE SEASON
+         {
+           title
+         }
         </Divider>
         <Row justify="space-around" gutter={[16, 24]}>
           {

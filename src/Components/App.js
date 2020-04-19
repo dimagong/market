@@ -1,4 +1,4 @@
-import React, {useState} from "react"
+import React from "react"
 import {connect} from 'react-redux'
 import {
   BrowserRouter as Router,
@@ -8,19 +8,22 @@ import {
 
 
 import "./App.css";
-import { ProductList } from "./ProductList/index"
+import ProductList from "./ProductList/index"
 import { ProductDetail} from "./ProductDetails/index"
-import { Cartcomponent } from "./ProductList/Carts/carts.component"
+import Cartcomponent from "./Carts/carts.component"
+
+import { actionCart } from "../Redux/Actions/actionCart"
 
 //import { Data } from './ProductList/Data';
 
-function App({data, onselectItem, selectedItem}) {
+function App({data, onselectItem, selectedItem, cart, changeData}) {
 
+  
   //const data = Data;
 
-  const [dataShop, updateData] = useState([]);
-  const changeData = (dataList) => updateData(dataList);
-  console.log('dataShop', dataShop);
+  //const [dataShop, updateData] = useState([]);
+  //const changeData = (dataList) => updateData(dataList);
+  //console.log('dataShop', dataShop);
 
   // const [selectedItem, addselectItem] = useState([]);
   // const onselectItem = (item) => addselectItem([...selectedItem, item])
@@ -30,7 +33,7 @@ function App({data, onselectItem, selectedItem}) {
       <Switch>
 
         <Route path="/" exact>
-          <ProductList  changeData={changeData} data={data}  onselectItem={onselectItem} />
+          <ProductList  changeData={changeData} data={data}  onselectItem={onselectItem} cart={cart} />
           {/* <ProductList   /> */} 
         </Route>
 
@@ -39,7 +42,7 @@ function App({data, onselectItem, selectedItem}) {
         </Route>
 
         <Route path="/cart" >
-          <Cartcomponent  dataShop={dataShop} data={data}/>
+          <Cartcomponent  cart={cart} data={data}/>
           {/* <Cartcomponent   /> */}
         </Route>
 
@@ -54,16 +57,21 @@ const mapToProps = (store) => {
     console.log("store", store)
     return {
       selectedItem: store.products.selected,
-      data: store.products.data
+      data: store.products.data,
+      cart: store.cartlist.cart     
     }
 }
 
 const mapToDispatchStore = (dispatch) => ({
   
+  
+  changeData: (item) => dispatch(actionCart(item)),
+
   onselectItem: (item)=> dispatch({
     type: 'SELECT_ITEM', 
-    item: item
+    item: item 
   })
+
 
 })
 

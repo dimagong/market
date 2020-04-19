@@ -1,5 +1,5 @@
 import React from 'react';
-import {UiLayoutComponent} from "../UI/Layout/uilayout.component";
+import {LayoutComponent} from "../UI/Layout/layout.component";
 
 export const ProductDetail = ({item}) =>{
 
@@ -8,6 +8,6 @@ export const ProductDetail = ({item}) =>{
     const content =  item.name;
 
     return(
-        <UiLayoutComponent  content={content}  />
+        <LayoutComponent  content={content}  />
     );
 };

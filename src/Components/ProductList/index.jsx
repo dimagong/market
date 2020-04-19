@@ -1,85 +1,95 @@
-import React, { useState } from "react";
-
+import React from "react";
+//import {connect} from 'react-redux'
 
 import { Card } from "./Blocks/index";
-import {UiLayoutComponent} from "../UI/Layout/uilayout.component" ;
+import {LayoutComponent} from "../UI/Layout/layout.component" ;
 import { ButtonCounter } from "../UI/Layout/button-couter.component";
 import { MenuComponent } from "../UI/Layout/menu.component";
+import {TextBold} from '../ProductList/Blocks/styles';
 
 import { Col } from "antd";
 
 
+ const ProductList = ({ changeData, data, onselectItem, cart}) => {
 
+  const priceCart = cart.reduce( 
+    (accumulator, currentValue) => {
+      return (accumulator + currentValue.totalprice );
+    }, 
+    0
+  );
 
-export const ProductList = ({ changeData, data, onselectItem }) => {
-
-  
-  const [countPrice, calculatorPrice] = useState({ price: 0, count: 0 });
-  const totalPriseIncrease = (nextCart) => {
-    let nextCount = countPrice.count + 1;
-    let nextPrice = nextCart.price + countPrice.price;
-    calculatorPrice({ price: nextPrice, count: nextCount })
-
-  }
-
-
-  const [cartList, addToCartList] = useState([]);
-
-  changeData(cartList);
+  const countCart = cart.reduce(
+    (accumulator, currentValue) => {
+      return (accumulator + currentValue.count );
+    }, 
+    0
+  );
 
   const onAppendNewCart = (secondCart) => {
-
-    var number = cartList.find((currentElem, i) => {
+    
+    var number = cart.find((currentElem, i) => {
       return currentElem === secondCart;
     });
 
     if (number) {
       number.count += 1;
-      console.log('number', number);
-      addToCartList(cartList);
-      console.log('cartList', cartList);
-
+      number.totalprice += number.price;
+      //number.price += number.price;
+      changeData([...cart]);
+      
     } else {
       secondCart.count = 1;
-      addToCartList([...cartList, secondCart])
+      secondCart.totalprice = secondCart.price;
+      changeData([...cart, secondCart]);
     }
+  }
 
-    totalPriseIncrease(secondCart);
-
+  const onDeleteCart = (deleteCart) => {
+    
+    if (deleteCart.count > 1) {
+      deleteCart.totalprice =  deleteCart.totalprice - deleteCart.price ; 
+      //deleteCart.price = deleteCart.price - (deleteCart.price / deleteCart.count) ;
+      deleteCart.count -= 1;
+      changeData([...cart]);
+      
+    } else {
+      const restCarts = cart.filter( (el) => el !== deleteCart );
+      changeData([...restCarts]);
+    }
   }
 
 
-  console.log('cartList', cartList);
-  console.log('countPrice', countPrice);
 
 
-
-
-  const renderCart = (item, onAppendNewCart, onselectItem) => {
+  const renderCart = (item, onAppendNewCart, onDeleteCart, onselectItem) => {
     return (
       <Col className="gutter-row" span={6} key={item.id} >
         <Card item={item} 
               onAppendNewCart={onAppendNewCart} 
               onselectItem={onselectItem}
-              
+              onDeleteCart={onDeleteCart}      
         />
       </Col>
     );
   };
 
   const listCart = data.map(item => {
-    return renderCart(item, onAppendNewCart, onselectItem);
+    return renderCart(item, onAppendNewCart, onDeleteCart, onselectItem);
   })
 
-
+  const title = 'THE HIT OF THE SEASON';
 
   return (
-  <UiLayoutComponent 
+  <LayoutComponent 
 
     menu={<MenuComponent />}  
-    buttoncount={<ButtonCounter price={countPrice.price} count={countPrice.count} />}  
-    content={listCart }  
+    buttoncount={<ButtonCounter price={priceCart} count={countCart} />}  
+    content={listCart } 
+    title={ <TextBold> {title} </TextBold> } 
   
   />
   );
 };
+
+export default ProductList;

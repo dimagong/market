@@ -1,16 +1,16 @@
 import React, {useState} from "react";
 import {Link} from "react-router-dom";
 
-import { Card as CardComponent, Button } from "antd";
+import { Card as CardComponent, Button, Row, Col } from "antd";
 import ReactCardFlip from 'react-card-flip';
 
-import {TextBold} from './styles';
+import {TextWhite} from './styles';
+import photo from '../../../images/photo.png';
 
 const { Meta } = CardComponent;
 
 
-
-export const Card = ({ item, onAppendNewCart, onselectItem }) => {
+export const Card = ({ item, onAppendNewCart, onDeleteCart, onselectItem }) => {
 
     const [isFlipped, changeFlipped] = useState(false);
     const onchangeFlipped = () => changeFlipped(!isFlipped);
@@ -19,9 +19,13 @@ export const Card = ({ item, onAppendNewCart, onselectItem }) => {
     //  const onAppendNewCart = () => addToCartList([]);
     //  console.log('cartList', cartList);
 
-    const onClickTitle = () => {
-        console.log("onselectIte", item);
-        onselectItem(item);
+   
+    const onAddCart = () => {
+        onAppendNewCart(item);
+    }
+
+    const onDelete = () => {
+        onDeleteCart(item);
     }
     return (
 
@@ -33,31 +37,31 @@ export const Card = ({ item, onAppendNewCart, onselectItem }) => {
                 onClick={onchangeFlipped}
                 
             >
-                 {/* <Link to='/details'>  */}
-                    <Meta title={item.name}  onClick={onClickTitle} />
-                 {/* </Link>  */}
+                <Meta title={`$ ${item.price}`}  style={{ fontSize: 20 }} />
                 
-                <Meta title={`$ ${item.price}`} />
-                <TextBold>Text</TextBold>
-                <Button type="primary" onClick={ () =>{ onAppendNewCart(item)} } >Add to Cart</Button>
-                <Button type="primary" danger>Primary</Button>
-                
+                <Row style={{ marginTop: 5 }}>
+                <Col span={24}><TextWhite> {item.name} </TextWhite></Col>
+                </Row>
+                <Row style={{ width: 177, marginTop: 5 }}>
+                    <Col span={12} ><Button type="primary" onClick={ onAddCart } >Add Cart</Button></Col>
+                    <Col span={12} ><Button type="primary" danger onClick={ onDelete }>Delete Cart</Button></Col>               
+                </Row>
             </CardComponent>
 
             <CardComponent
                 hoverable
                 style={{ width: 240 }}
-                cover={<img alt="example" src={'https://smhttp-ssl-77968-media.nexcesscdn.net/pub/media/catalog/product/cache/34388cf20c0b522cf37a8ea2ad6265a5/l/o/longhand-lp-cap_10600_nvard_12.jpg'} style={{ height: 280 }} />}
+                cover={<img alt="example" src={photo} style={{ height: 280 }} />}
                 onClick={onchangeFlipped}
                 
             >
-                <Link to='/details'>
+                {/* <Link to='/details'>
                     <Meta title={'item.name'}  />
-                 </Link> 
+                 </Link>  */}
                 
-                <Meta title={`$ ${item.price}`} />
-                <Button type="primary">Primary</Button>
-                <Button type="primary" danger>Primary</Button>
+                <Row style={{ marginTop: 55 }}>
+                <Col span={24}><TextWhite> Great choice !!! </TextWhite></Col>
+                </Row>
             </CardComponent>
         </ReactCardFlip>
 

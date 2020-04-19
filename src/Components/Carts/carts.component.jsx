@@ -1,14 +1,13 @@
-import React from 'react';
+import React from 'react'
+
 
 import { Layout,  Row, Col, Divider, Card as CardComponent } from "antd";
 
-
-
-
-export const Cartcomponent = ({dataShop}) => {
+ 
+const Cartcomponent = ({cart}) => {
 
     const { Header, Footer, Content } = Layout;
-    console.log('dataShop Cartcomponent', dataShop);
+   // console.log('dataShop Cartcomponent', dataShop);
     
     return (
         <Layout style={{ minHeight: "100vh"}} >
@@ -19,7 +18,7 @@ export const Cartcomponent = ({dataShop}) => {
                 </Divider>
                 <Row justify="space-around" gutter={[16, 24]}>
                     {
-                        dataShop.map(item => {
+                        cart.map(item => {
                             // return renderCart(item, onAppendNewCart);
                             return (<Col className="gutter-row" span={6} style={{ marginLeft: '15px' } } key={item.id} >
                                 <CardComponent
@@ -38,5 +37,4 @@ export const Cartcomponent = ({dataShop}) => {
     );
 }
 
-
-
+export default Cartcomponent;

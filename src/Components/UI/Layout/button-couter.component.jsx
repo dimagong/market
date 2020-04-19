@@ -1,7 +1,18 @@
 import React from "react";
-import { Link } from "react-router-dom";
 
 import { Button} from "antd";
+import {
+    DollarOutlined,
+    FieldNumberOutlined,
+    HomeOutlined,
+    DollarCircleOutlined,
+    MenuUnfoldOutlined,
+    MenuFoldOutlined,
+    ShoppingCartOutlined,
+    ShoppingOutlined,
+    WomanOutlined
+  } from '@ant-design/icons';
+
 
 
 export const ButtonCounter = ({ count, price }) => {
@@ -11,15 +22,15 @@ export const ButtonCounter = ({ count, price }) => {
 
         <>
             <Button type="primary" danger>
-                <Link to='/cart'>
-                    YOUR CART
-                </Link>
+                TOTAL
+            </Button>
+            <Button danger  >
+            <FieldNumberOutlined style={{ fontSize: '16px'}}  />
+                {`${count}`}
             </Button>
             <Button danger>
-                {`All GOODS : ${count}`}
-            </Button>
-            <Button danger>
-                {`TOTAL: $  ${price}`}
+            <DollarOutlined  style={{ fontSize: '16px' }} />
+                {`${price}`}
             </Button>
         </> 
   );
