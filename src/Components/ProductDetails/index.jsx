@@ -1,5 +1,5 @@
 import React from 'react';
-import {LayoutComponent} from "../UI/Layout/layout.component";
+import LayoutComponent from "../../Lauout/layout.component"
 
 export const ProductDetail = ({item}) =>{
 

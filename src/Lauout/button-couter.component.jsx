@@ -3,14 +3,7 @@ import React from "react";
 import { Button} from "antd";
 import {
     DollarOutlined,
-    FieldNumberOutlined,
-    HomeOutlined,
-    DollarCircleOutlined,
-    MenuUnfoldOutlined,
-    MenuFoldOutlined,
-    ShoppingCartOutlined,
-    ShoppingOutlined,
-    WomanOutlined
+    FieldNumberOutlined
   } from '@ant-design/icons';
 
 

@@ -2,9 +2,9 @@ import React from "react";
 //import {connect} from 'react-redux'
 
 import { Card } from "./Blocks/index";
-import {LayoutComponent} from "../UI/Layout/layout.component" ;
-import { ButtonCounter } from "../UI/Layout/button-couter.component";
-import { MenuComponent } from "../UI/Layout/menu.component";
+import LayoutComponent from "../../Lauout/layout.component" ;
+import { ButtonCounter } from "../../Lauout/button-couter.component";
+import { MenuComponent } from "../../Lauout/menu.component";
 import {TextBold} from '../ProductList/Blocks/styles';
 
 import { Col } from "antd";

@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import { Button, Menu } from "antd";
 import {
   HomeOutlined,
-  DollarCircleOutlined,
   MenuUnfoldOutlined,
   MenuFoldOutlined,
   ShoppingCartOutlined,

@@ -1,11 +1,11 @@
-import React, {useState} from "react";
-import {Link} from "react-router-dom";
+import React, {useState} from "react"
+//import {Link} from "react-router-dom";
 
-import { Card as CardComponent, Button, Row, Col } from "antd";
-import ReactCardFlip from 'react-card-flip';
+import { Card as CardComponent, Button, Row, Col } from "antd"
+import ReactCardFlip from 'react-card-flip'
 
-import {TextWhite} from './styles';
-import photo from '../../../images/photo.png';
+import {TextWhite} from './styles'
+import photo from '../../../access/images/shopping-bag.svg'
 
 const { Meta } = CardComponent;
 
@@ -14,11 +14,6 @@ export const Card = ({ item, onAppendNewCart, onDeleteCart, onselectItem }) => {
 
     const [isFlipped, changeFlipped] = useState(false);
     const onchangeFlipped = () => changeFlipped(!isFlipped);
-
-    //  const [cartList, addToCartList] = useState({listcart});
-    //  const onAppendNewCart = () => addToCartList([]);
-    //  console.log('cartList', cartList);
-
    
     const onAddCart = () => {
         onAppendNewCart(item);

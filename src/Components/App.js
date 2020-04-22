@@ -3,7 +3,8 @@ import {connect} from 'react-redux'
 import {
   BrowserRouter as Router,
   Switch,
-  Route
+  Route,
+  Redirect
 } from "react-router-dom"
 
 
@@ -11,22 +12,19 @@ import "./App.css";
 import ProductList from "./ProductList/index"
 import { ProductDetail} from "./ProductDetails/index"
 import Cartcomponent from "./Carts/carts.component"
+import LoginComponent from "./Authorize/LogIn/log-in.component"
 
 import { actionCart } from "../Redux/Actions/actionCart"
+import { actionLogin } from "../Redux/Actions/actionLogin"
 
 //import { Data } from './ProductList/Data';
 
-function App({data, onselectItem, selectedItem, cart, changeData}) {
+function App({data, onselectItem, 
+                    selectedItem, 
+                    cart, changeData, 
+                    createLogin, name, 
+                    password, email}) {
 
-  
-  //const data = Data;
-
-  //const [dataShop, updateData] = useState([]);
-  //const changeData = (dataList) => updateData(dataList);
-  //console.log('dataShop', dataShop);
-
-  // const [selectedItem, addselectItem] = useState([]);
-  // const onselectItem = (item) => addselectItem([...selectedItem, item])
 
   return (
     <Router>
@@ -46,19 +44,35 @@ function App({data, onselectItem, selectedItem, cart, changeData}) {
           {/* <Cartcomponent   /> */}
         </Route>
 
- 
+        <Route path="/login" exact render = {
+           () => name ? 
+           (<Redirect to='/' />) 
+           : 
+           (<LoginComponent  createLogin={createLogin} 
+            nameStore={name}
+            passwordStore={password}
+            emailStore={email}
+            />)}
+        />
+        
+        
       </Switch>
 
     </Router> 
   );
 }
 
+
+
 const mapToProps = (store) => {
     console.log("store", store)
     return {
       selectedItem: store.products.selected,
       data: store.products.data,
-      cart: store.cartlist.cart     
+      cart: store.cartlist.cart,
+      name: store.login.name,
+      password: store.login.password,  
+      email: store.login.email   
     }
 }
 
@@ -66,6 +80,8 @@ const mapToDispatchStore = (dispatch) => ({
   
   
   changeData: (item) => dispatch(actionCart(item)),
+
+  createLogin: (login) => dispatch(actionLogin(login)),
 
   onselectItem: (item)=> dispatch({
     type: 'SELECT_ITEM', 
