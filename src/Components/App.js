@@ -1,4 +1,4 @@
-import React from "react"
+import React, {useEffect} from "react"
 import {connect} from 'react-redux'
 import {
   BrowserRouter as Router,
@@ -16,16 +16,23 @@ import LoginComponent from "./Authorize/LogIn/log-in.component"
 
 import { actionCart } from "../Redux/Actions/actionCart"
 import { actionLogin } from "../Redux/Actions/actionLogin"
+import { selectItem } from "../Redux/Actions/products"
+import { setProducts } from "../Redux/Actions/products"
 
-//import { Data } from './ProductList/Data';
+import { Data as dataDefault } from '../access/data/Data';
 
-function App({data, onselectItem, 
+function App({      data, 
+                    onsetProducts,
+                    onselectItem, 
                     selectedItem, 
                     cart, changeData, 
                     createLogin, name, 
                     password, email}) {
 
-
+  useEffect( () => {
+    return data.lenght || onsetProducts(dataDefault)
+  },[]);
+                      
   return (
     <Router>
       <Switch>
@@ -76,20 +83,16 @@ const mapToProps = (store) => {
     }
 }
 
-const mapToDispatchStore = (dispatch) => ({
-  
-  
-  changeData: (item) => dispatch(actionCart(item)),
-
-  createLogin: (login) => dispatch(actionLogin(login)),
-
-  onselectItem: (item)=> dispatch({
-    type: 'SELECT_ITEM', 
-    item: item 
-  })
-
-
-})
+//const mapToDispatchStore = (dispatch) => ({
+//  changeData: (item) => dispatch(actionCart(item)),
+//  reateLogin: (login) => dispatch(actionLogin(login))
+// })
+const mapToDispatchStore = {
+  changeData: actionCart,
+  createLogin: actionLogin,
+  onselectItem: selectItem,
+  onsetProducts: setProducts
+}
 
 export default connect(mapToProps, mapToDispatchStore)(App);
 
