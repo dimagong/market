@@ -51,8 +51,6 @@ export const apiMiddleware = (store) => next => action => {
         types
     } = action.apiData;
 
-    
-
     next({
         type: types.REQUEST
     })
@@ -61,7 +59,6 @@ export const apiMiddleware = (store) => next => action => {
     const onSuccess = (response) => {
 
        console.log('response', response);
-        //const res = response.data.oprducts;
         var res;
         if(response.data.products) {
             res = response.data.products;
