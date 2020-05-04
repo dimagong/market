@@ -22,11 +22,12 @@ export const Card = ({ item, onAppendNewCart, onDeleteCart, onselectItem }) => {
     const onDelete = () => {
         onDeleteCart(item);
     }
-    return (
+    return ( 
 
         <ReactCardFlip isFlipped={isFlipped} flipDirection="vertical">
             <CardComponent
                 hoverable
+                
                 style={{ width: 240 }}
                 cover={<img alt="example" src={item.image} style={{ height: 280 }} />}
                 onClick={onchangeFlipped}

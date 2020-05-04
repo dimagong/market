@@ -21,7 +21,7 @@ const Cartcomponent = ({cart}) => {
     const content = cart.map(item => {
                 return (
                         <Col className="gutter-row" span={6}
-                            style={{ marginLeft: '15px' }}
+                            style={{ marginLeft: '15px', }}
                             key={item.id} >
                             <CardComponent
                                 hoverable

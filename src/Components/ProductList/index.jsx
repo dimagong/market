@@ -59,12 +59,10 @@ import { Col } from "antd";
     }
   }
 
-
-
-
   const renderCart = (item, onAppendNewCart, onDeleteCart, onselectItem) => {
     return (
-      <Col className="gutter-row" span={6} key={item.id} >
+      
+      <Col className="gutter-row"  style={{flexWrap: "wrap" }}   key={item.id} >
         <Card item={item} 
               onAppendNewCart={onAppendNewCart} 
               onselectItem={onselectItem}
@@ -76,7 +74,7 @@ import { Col } from "antd";
 
   const listCart = data.map(item => {
     return renderCart(item, onAppendNewCart, onDeleteCart, onselectItem);
-  })
+  });
 
   const title = 'THE HIT OF THE SEASON';
 

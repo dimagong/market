@@ -1,26 +1,31 @@
 import axios from 'axios'
-import {merger} from 'lodash'
+//import {merge} from 'lodash'
 
 import {API_REQUEST} from '../Actions/api'
+//import {setDataBase} from '../../firebase/firebase.config'
 
 
 const apiCall = (   {
-                    url = 'https://shopserver.firebaseapp.com',
-                    andpoint = '', 
-                    method = 'GET', 
+                    
+                    url = 'https://market-db-41f10.web.app/',      
+                    //url = 'https://shopserver.firebaseapp.com',
+                    endpoint = '', 
+                    method = '', 
                     body = [], 
                     headers = {}
                     } 
                 ) => {
 
     const methodLower = method.toLowerCase()
-    axios.create(
-        baseUrl = url,
+    
+    const instance = axios.create({
+        baseURL: url,
         headers
-    )
+      });
+   
    
     return new Promise( (resolve, reject) => {
-        axios[methodLower](andpoint, body)
+        instance[methodLower]( endpoint, body)
         .then( response => resolve(response) )
         .catch ( error => reject(error) )
     })
@@ -28,42 +33,70 @@ const apiCall = (   {
 
 
 
-const nextAction = (action, data) =>{
-    const next = merger({}, action, data);
-    delete next[API_REQUEST];
-    return next;
-}
 
-export default state => next => action => {
-    if(action.type === API_REQUEST && !action.apiData) next(action)
+export const apiMiddleware = (store) => next => action => {
+    
+    if(action.type !== API_REQUEST || !action.apiData){
+        return next(action);
+    }
+
+    console.log('action', action);
+    
     const {
         url,
-        andpoint,
+        endpoint,
         method,
         body,
         headers,
         types
-    } = action.data;
-
-    nextAction(action, {
-        type: types.REQUEST
-    })
-
-    const onSuccess = (response) => {
-
-    }
-
-    const onError = (error) => {
-
-    }
+    } = action.apiData;
 
     
 
-    apiCall( { url, andpoint, method, body, headers, types } )
+    next({
+        type: types.REQUEST
+    })
+    
+
+    const onSuccess = (response) => {
+
+       console.log('response', response);
+        //const res = response.data.oprducts;
+        var res;
+        if(response.data.products) {
+            res = response.data.products;
+        }else {
+            res = response.data.name;
+        } 
+        
+        
+        next({
+            type: types.SUCCESS,
+            res
+        })
+
+        //setDataBase();
+    }
+
+    const onError = (err) => {
+
+        var errorType = '';
+       if(err.data && err.status === 401) errorType="Unauthorized";
+        
+        console.log('errorType', errorType);
+        
+        next({
+            type: types.FAIL,
+            errorType
+        })
+
+    }
+
+    apiCall( { url, endpoint, method, body, headers, types } )
     .then(onSuccess, onError)
     .catch( err => console.log('err', err))
 }
 
 
 
-//const axios = require('axios').default;
+

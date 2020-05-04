@@ -19,7 +19,7 @@ import { actionLogin } from "../Redux/Actions/actionLogin"
 import { selectItem } from "../Redux/Actions/products"
 import { setProducts } from "../Redux/Actions/products"
 
-import { Data as dataDefault } from '../access/data/Data';
+//import { Data as dataDefault } from '../access/data/Data';
 
 function App({      data, 
                     onsetProducts,
@@ -27,10 +27,11 @@ function App({      data,
                     selectedItem, 
                     cart, changeData, 
                     createLogin, name, 
-                    password, email}) {
+                    password, email, isLoader}) {
 
   useEffect( () => {
-    return data.lenght || onsetProducts(dataDefault)
+    //return data.lenght || onsetProducts(dataDefault)
+    return data.lenght || onsetProducts()
   },[]);
                       
   return (
@@ -61,6 +62,7 @@ function App({      data,
             emailStore={email}
             />)}
         />
+        {/* { isLoader? <Loader /> : ''} */}
         
         
       </Switch>
@@ -79,7 +81,8 @@ const mapToProps = (store) => {
       cart: store.cartlist.cart,
       name: store.login.name,
       password: store.login.password,  
-      email: store.login.email   
+      email: store.login.email,
+      isLoader: store.products.isLoader  
     }
 }
 
