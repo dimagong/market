@@ -17,13 +17,13 @@ const LayoutComponent = ({ menu, buttoncount, content, title, name }) => {
         <Row>
           <Col span={4}>{menu}</Col>
           <Col sm={2} xs={0} style={{ marginTop: 10 }}  >
-            <Link to='/'>
+            <Link to='/market/'>
               <Logo  />
             </Link>
           </Col>
           <Col sm={14} xs={16} style={{ textAlign: "end" }} >{buttoncount}</Col>
           <Col span={4} >
-            <Link to='/login' style={{ color: 'white', textAlign: "end" }}>
+            <Link to='/market/login' style={{ color: 'white', textAlign: "end" }}>
               {
                 name ?
                   <p>HELLO {name.toUpperCase()}  !</p>

@@ -31,9 +31,9 @@ export const MenuComponent = () => {
         theme="dark"
         inlineCollapsed={collapsed}
       >
-        <Menu.Item key="1" to='/cart'>
+        <Menu.Item key="1" to='/market/cart'>
 
-          <Link to='/cart'>
+          <Link to='/market/cart'>
             <ShoppingCartOutlined />
             <span>YOUR CART</span>
           </Link>
@@ -41,19 +41,19 @@ export const MenuComponent = () => {
         </Menu.Item>
 
         <Menu.Item key="2">
-          <Link to='/details'>
+          <Link to='/market/details'>
           <ShoppingOutlined />
             <span>DETAILS</span>
           </Link>
         </Menu.Item>
         <Menu.Item key="3">
-          <Link to='/details'>
+          <Link to='/market/details'>
             <WomanOutlined />
             <span>LIFE STYLE</span>
           </Link>
           </Menu.Item>
         <Menu.Item key="4">
-          <Link to='/details'>
+          <Link to='/market/details'>
             <HomeOutlined />
             <span>CONTACT</span>
           </Link>

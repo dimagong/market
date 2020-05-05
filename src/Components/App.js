@@ -38,23 +38,23 @@ function App({      data,
     <Router>
       <Switch>
 
-        <Route path="/" exact>
+        <Route path="/market" exact>
           <ProductList  changeData={changeData} data={data}  onselectItem={onselectItem} cart={cart} />
           {/* <ProductList   /> */} 
-        </Route>
+        </Route> 
 
-        <Route path="/details" > 
+        <Route path="/market/details" > 
           <ProductDetail item={selectedItem} />
         </Route>
 
-        <Route path="/cart" >
+        <Route path="/market/cart" >
           <Cartcomponent  cart={cart} data={data}/>
           {/* <Cartcomponent   /> */}
         </Route>
 
-        <Route path="/login" exact render = {
+        <Route path="/market/login" exact render = {
            () => name ? 
-           (<Redirect to='/' />) 
+           (<Redirect to='/market' />) 
            : 
            (<LoginComponent  createLogin={createLogin} 
             nameStore={name}

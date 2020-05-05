@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 import { Button} from "antd";
 import {
@@ -15,7 +16,9 @@ export const ButtonCounter = ({ count, price }) => {
 
         <>
             <Button type="primary" danger>
-                TOTAL
+                <Link to='/market/cart'>
+                     TOTAL
+                </Link>
             </Button>
             <Button danger  >
             <FieldNumberOutlined style={{ fontSize: '16px'}}  />
