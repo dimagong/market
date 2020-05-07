@@ -1,24 +1,41 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import {Provider} from "react-redux"
+import { Provider } from "react-redux"
+import { PersistGate } from 'redux-persist/integration/react'
 
 import "antd/dist/antd.css"
 
 import './index.css'
 import App from 'Components/App'
-import {create} from './Redux/index'
+import { create } from './Redux/index'
 
 
 const store = create();
- 
+
 ReactDOM.render(
   <React.StrictMode>
-      <Provider store={store} >
-          <App  />
-      </Provider>  
+    <Provider store={store.store} >
+      <PersistGate  persistor={store.persistor}>
+        <App />
+      </PersistGate>
+    </Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );
+
+
+
+// ReactDOM.render(
+//   <React.StrictMode>
+//     <Provider store={store} >
+//       
+//         <App />
+//    
+//     </Provider>
+//   </React.StrictMode>,
+//   document.getElementById('root')
+// );
+
 
 
 //import * as serviceWorker from './serviceWorker';
